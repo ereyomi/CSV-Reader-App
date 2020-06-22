@@ -51,7 +51,6 @@ const getNeatCsv = ( req, res ) => {
 
 // require csvtojson module
     const CSVToJSON = require( 'csvtojson' );
-const { parse } = require( 'path' );
 
 const getCsvToJSON = ( req, res ) => {
 
@@ -60,7 +59,6 @@ const getCsvToJSON = ( req, res ) => {
         .then(data => {
             // users is a JSON array
             // log the JSON array
-            console.log(data)
             /* const structureData = data.map( data => {
                 const { fullname, username, email, totalpoint } = data
                 return {
@@ -83,15 +81,21 @@ const getCsvToJSON = ( req, res ) => {
                 return yInt - xInt;
             });
              
-            res.send( newData )
+            //res.send( newData )
+            return newData
         }).catch(err => {
             // log error if any
-            res.send( err )
+            //res.send( err )
+            return err
         });
 }
 
 // Callback function to complete GET '/all'
-app.get( '/api/getdata', getCsvToJSON)
+//app.get( '/api/getdata', getCsvToJSON)
+app.get( '/api/getdata', ( req, res ) => {
+    const d = getCsvToJSON();
+    res.send(d)
+})
 // Setup Server
 
 const port = process.env.PORT || 8000;
