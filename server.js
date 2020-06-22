@@ -89,6 +89,9 @@ const getCsvToJSON = ( req, res ) => {
             res.send( err )
         });
 }
+
+// Callback function to complete GET '/all'
+app.get( '/api/getdata', getCsvToJSON)
 // Setup Server
 
 const port = process.env.PORT || 8000;
@@ -98,5 +101,3 @@ const server = app.listen( port, () => {
     console.log( "running on localhost: ", port );
 } )
 
-// Callback function to complete GET '/all'
-app.get( '/api/getdata', getCsvToJSON)

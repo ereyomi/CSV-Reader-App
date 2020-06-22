@@ -105,36 +105,36 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         {
             await fetch( '/api/getdata' )
             .then(res => res.json())
-                .then( dataR => {
+                .then( ress => {
                 loading( false )
                 //clientTempStore = dataR
                 let counter = 0; //counter for top 3
-                dataR.forEach( data => {
+                ress.forEach( data => {
 
                     const card = document.createElement( 'div' )
-        if ( counter > 2 )
-        {
-            card.setAttribute( 'class', 'card top' )
-        } else
-        {
-            card.setAttribute( 'class', 'card' )
-        }
-        card.setAttribute( 'data-card-username', `${ data.username }` )
-        card.innerHTML = `
-                <div class="card-side-a">
-                    <p class="card-name">
-                        ${data.fullname }
-                    </p>
-                    <p class="handle">${data.username }</p>
-                </div>
-                <div class="card-side-b">
-                    <div class="score">
-                        <span>${data.totalpoint }</span>
-                    </div>
-                </div>
-            `;
+                    if ( counter > 2 )
+                    {
+                        card.setAttribute( 'class', 'card top' )
+                    } else
+                    {
+                        card.setAttribute( 'class', 'card' )
+                    }
+                    card.setAttribute( 'data-card-username', `${ data.username }` )
+                    card.innerHTML = `
+                            <div class="card-side-a">
+                                <p class="card-name">
+                                    ${data.fullname }
+                                </p>
+                                <p class="handle">${data.username }</p>
+                            </div>
+                            <div class="card-side-b">
+                                <div class="score">
+                                    <span>${data.totalpoint }</span>
+                                </div>
+                            </div>
+                        `;
 
-            parent.appendChild( card )
+                parent.appendChild( card )
 
                     ++counter
                 } )
