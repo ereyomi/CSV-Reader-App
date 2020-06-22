@@ -42,18 +42,16 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     
     }
 
-    const fullDataUpdate = ( data ) => {
+    let clientTempStore = [ ];
+    const fullDataUpdate = () => {
         let counter = 0
-        ( typeof data === 'object' ) ? ''
-            : (
              //counter for top 3
-            data.forEach( da => {
+            clientTempStore.forEach( da => {
 
                 updateUi( counter, da )
 
                 ++counter
             } ) 
-        )
         
     }
     
@@ -70,7 +68,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     
 
     loading( true )
-    let clientTempStore = [ ];
+    
     
     const myPromise = async () => {
         return new Promise( async ( resolve, reject ) => {
@@ -90,8 +88,12 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                 (data.length > 0) ? loading( false ) : ''
                 clientTempStore = data
                 //fullDataUpdate(data)
-                    data.forEach( d => {
-                        const card = document.createElement( 'div' )
+                let counter = 0
+
+                data.forEach( d => {
+                    updateUi(counter, d)
+                    ++counter
+                        /* const card = document.createElement( 'div' )
                         card.setAttribute( 'data-card-username', `${ d.username }` )
                         card.innerHTML = `
                             <div class="card-side-a">
@@ -108,7 +110,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                         `;
 
                         parent.appendChild( card )
-                    })
+                    }) */
                 
             } ) 
 
