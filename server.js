@@ -55,7 +55,7 @@ const getNeatCsv = ( req, res ) => {
 const getCsvToJSON = ( req, res ) => {
 
     // convert users.csv file to JSON array
-    CSVToJSON().fromFile('test-file.csv')
+    CSVToJSON().fromFile('HNGi7.csv')
         .then(data => {
             // users is a JSON array
             // log the JSON array
