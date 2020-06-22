@@ -53,7 +53,8 @@ const getNeatCsv = ( req, res ) => {
     const CSVToJSON = require( 'csvtojson' );
 const { parse } = require( 'path' );
 
-let dataToSend;
+const getCsvToJSON = ( req, res ) => {
+
     // convert users.csv file to JSON array
     CSVToJSON().fromFile('csv/HNGI7.csv')
         .then(data => {
@@ -74,7 +75,7 @@ let dataToSend;
             }
             ); */
 
-            dataToSend = data.filter(a => a.totalpoint !== '').sort((x,y) => {
+            const newData = data.filter(a => a.totalpoint !== '').sort((x,y) => {
             // var xInt = new Number(x.totalpoint.substring(1,x.length));
             // var yInt = new Number(y.totalpoint.substring(1,x.length)); 
                 let xInt = parseInt(x.totalpoint)
@@ -82,14 +83,15 @@ let dataToSend;
                 return yInt - xInt;
             });
              
+            res.send( newData )
         }).catch(err => {
             // log error if any
-            dataToSend = err
+            res.send( err )
         });
-
+}
 // Setup Server
 
-const port = process.env.PORT || 8000;
+const port = 8000;
 
 const server = app.listen( port, () => {
     console.log( "server running" );
@@ -97,6 +99,4 @@ const server = app.listen( port, () => {
 } )
 
 // Callback function to complete GET '/all'
-app.get( '/api/getdata', (req, res) => {
-    res.send(dataToSend)
-})
+app.get( '/api/getdata', getCsvToJSON)
