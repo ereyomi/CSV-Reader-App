@@ -38,18 +38,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     }
 }
 
-    /* Function to GET Project Data */
-    const getData = async( url = '/api/getdata' ) => {
-        try
-        {
-            const res = await fetch( url );
-            const d = await res.json();
-            return d;
-
-        } catch (error) {
-            alert( error );
-        }
-    }
+    
 
     /* update UI */
 
@@ -84,9 +73,9 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     
     }
 
-    const fullDataUpdate = (data) => {
+    const fullDataUpdate = (dat) => {
         let counter = 0; //counter for top 3
-        data.forEach( da => {
+        dat.forEach( da => {
 
             updateUi( counter, da )
 
@@ -110,13 +99,21 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     let clientTempStore = [ ];
     
     
-    getData().then( data => {
-        console.log("the data", data)
-        (data.length > 0) ? loading( false ) : ''
-        clientTempStore = data
-        fullDataUpdate(data)
-        
-    })   
+    /* getData() */  
+    /* Function to GET Project Data */
+        try
+        {
+            await fetch( '/api/getdata' )
+            .then(res => res.json())
+                .then( data => {
+                loading( false )
+                clientTempStore = data
+                fullDataUpdate(data)
+            } ) 
+
+        } catch (error) {
+            alert( error );
+        }
 
     /* Debounce function */
     function debounce ( a, b, c ) { var d, e; return function () { function h () { d = null, c || ( e = a.apply( f, g ) ) } var f = this, g = arguments; return clearTimeout( d ), d = setTimeout( h, b ), c && !d && ( e = a.apply( f, g ) ), e } };
