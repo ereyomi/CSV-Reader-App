@@ -114,7 +114,26 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                     console.log(data)
                 (data.length > 0) ? loading( false ) : ''
                 clientTempStore = data
-                fullDataUpdate(data)
+                //fullDataUpdate(data)
+                    data.forEach( d => {
+                        const card = document.createElement( 'div' )
+                    card.setAttribute( 'data-card-username', `${ data.username }` )
+                    card.innerHTML = `
+                <div class="card-side-a">
+                    <p class="card-name">
+                        ${data.fullname }
+                    </p>
+                    <p class="handle">${data.username }</p>
+                </div>
+                <div class="card-side-b">
+                    <div class="score">
+                        <span>${data.totalpoint }</span>
+                    </div>
+                </div>
+            `;
+
+            parent.appendChild( card )
+                    })
                 
             } ) 
 
