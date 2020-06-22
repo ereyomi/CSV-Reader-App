@@ -109,8 +109,8 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                             </div>
                         `;
 
-                        parent.appendChild( card )
-                    }) */
+                        parent.appendChild( card )*/
+                    }) 
                 
             } ) 
 
