@@ -103,15 +103,21 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     loading( true )
     let clientTempStore = [ ];
     
-    
+    const myPromise = () => {
+        return new Promise( ( resolve, reject ) => {
+            await fetch( '/api/getdata' )
+                .then( res => res.json() )
+                .then( d => resolve( d ) )
+            .catch(e => reject(e))
+        })
+    }
     /* getData() */  
     /* Function to GET Project Data */
         try
         {
-            await fetch( '/api/getdata' )
-            .then(res => res.json())
-                .then( data => {
-                    console.log(data)
+            myPromise()
+            .then( data => {
+                    //console.log(data)
                 (data.length > 0) ? loading( false ) : ''
                 clientTempStore = data
                 //fullDataUpdate(data)
@@ -119,20 +125,20 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                         const card = document.createElement( 'div' )
                     card.setAttribute( 'data-card-username', `${ data.username }` )
                     card.innerHTML = `
-                <div class="card-side-a">
-                    <p class="card-name">
-                        ${data.fullname }
-                    </p>
-                    <p class="handle">${data.username }</p>
-                </div>
-                <div class="card-side-b">
-                    <div class="score">
-                        <span>${data.totalpoint }</span>
-                    </div>
-                </div>
-            `;
+                        <div class="card-side-a">
+                            <p class="card-name">
+                                ${data.fullname }
+                            </p>
+                            <p class="handle">${data.username }</p>
+                        </div>
+                        <div class="card-side-b">
+                            <div class="score">
+                                <span>${data.totalpoint }</span>
+                            </div>
+                        </div>
+                    `;
 
-            parent.appendChild( card )
+                    parent.appendChild( card )
                     })
                 
             } ) 
