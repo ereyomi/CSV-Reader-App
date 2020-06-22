@@ -73,7 +73,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     let clientTempStore = [ ];
     
     const myPromise = async () => {
-        return new Promise( ( resolve, reject ) => {
+        return new Promise( async ( resolve, reject ) => {
             await fetch( '/api/getdata' )
                 .then( res => res.json() )
                 .then( d => resolve( d ) )
