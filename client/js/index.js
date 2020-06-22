@@ -86,32 +86,15 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
             .then( data => {
                     //console.log(data)
                 (data.length > 0) ? loading( false ) : ''
-                clientTempStore = data
+                
                 //fullDataUpdate(data)
                 let counter = 0
 
                 data.forEach( d => {
                     updateUi(counter, d)
                     ++counter
-                        /* const card = document.createElement( 'div' )
-                        card.setAttribute( 'data-card-username', `${ d.username }` )
-                        card.innerHTML = `
-                            <div class="card-side-a">
-                                <p class="card-name">
-                                    ${d.fullname }
-                                </p>
-                                <p class="handle">${d.username }</p>
-                            </div>
-                            <div class="card-side-b">
-                                <div class="score">
-                                    <span>${d.totalpoint }</span>
-                                </div>
-                            </div>
-                        `;
-
-                        parent.appendChild( card )*/
                     }) 
-                
+                clientTempStore = data
             } ) 
 
         } catch (error) {
@@ -123,14 +106,19 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
 
     handleSearchChange = debounce( ( event ) => {
         const searchText = event.target.value.toLowerCase()
-            parent.innerHTML = ''
-            console.log( searchText )
+        parent.innerHTML = ''
+        
             const dd = clientTempStore.find( d => d.username.toLowerCase() == `@${ searchText }` )
             
 
             if ( searchText === '' )
             {
-                fullDataUpdate( clientTempStore );
+               let count = 0
+
+                clientTempStore.forEach( dddd => {
+                    updateUi(count, dddd)
+                    ++count
+                }) 
             } else
             {
                 typeof dd !== 'undefined' ? updateUi( 0, dd ) : ''
