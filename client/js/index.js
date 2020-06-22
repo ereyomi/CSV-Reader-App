@@ -111,6 +111,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
             await fetch( '/api/getdata' )
             .then(res => res.json())
                 .then( data => {
+                    console.log(data)
                 (data.length > 0) ? loading( false ) : ''
                 clientTempStore = data
                 fullDataUpdate(data)
