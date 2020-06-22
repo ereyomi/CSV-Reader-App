@@ -7,38 +7,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     const loader = document.querySelector( '#loading' )
     
     
-    /* Function to POST data */
-    const postData = async ( url = '', data = {} ) => {
-    try
-    {
-        const options = {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify( data )
-        };
-        
-        try {
-            const resp = await fetch( url, options )
-            const respData = resp.json();
-
-            return respData;
-            
-        } catch (error) {
-            console.log( error );
-        }
-        
-    } catch ( error )
-    {
-        alert( "error: ", error );
-
-    }
-}
-
-    
+   
 
     /* update UI */
 
@@ -103,7 +72,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     loading( true )
     let clientTempStore = [ ];
     
-    const myPromise = () => {
+    const myPromise = async () => {
         return new Promise( ( resolve, reject ) => {
             await fetch( '/api/getdata' )
                 .then( res => res.json() )
