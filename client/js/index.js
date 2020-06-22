@@ -79,9 +79,8 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                 </div>
             `;
 
-        setTimeout( () => {
             parent.appendChild( card )
-        }, 100 )
+       
     
     }
 
@@ -115,7 +114,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         
         (data.length > 0) ? loading( false ) : ''
         clientTempStore = data
-        fullDataUpdate(data)
+        fullDataUpdate(clientTempStore)
         
     })   
 
