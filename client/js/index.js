@@ -111,10 +111,10 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     
     
     getData().then( data => {
-        
+        console.log("the data", data)
         (data.length > 0) ? loading( false ) : ''
         clientTempStore = data
-        fullDataUpdate(clientTempStore)
+        fullDataUpdate(data)
         
     })   
 
