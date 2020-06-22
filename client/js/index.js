@@ -105,10 +105,16 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         {
             await fetch( '/api/getdata' )
             .then(res => res.json())
-                .then( data => {
+                .then( dataR => {
                 loading( false )
-                clientTempStore = data
-                fullDataUpdate(data)
+                //clientTempStore = dataR
+                let counter = 0; //counter for top 3
+                dataR.forEach( da => {
+
+                    updateUi( counter, da )
+
+                    ++counter
+                } )
             } ) 
 
         } catch (error) {
@@ -118,7 +124,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     /* Debounce function */
     function debounce ( a, b, c ) { var d, e; return function () { function h () { d = null, c || ( e = a.apply( f, g ) ) } var f = this, g = arguments; return clearTimeout( d ), d = setTimeout( h, b ), c && !d && ( e = a.apply( f, g ) ), e } };
 
-    handleSearchChange = debounce( ( event ) => {
+    /*handleSearchChange = debounce( ( event ) => {
         const searchText = event.target.value.toLowerCase()
             parent.innerHTML = ''
             console.log( searchText )
@@ -132,10 +138,10 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
             {
                 typeof dd !== 'undefined' ? updateUi( 0, dd ) : ''
             }
-    }, 500 )
+    }, 500 )*/
     
     const searchInput = document.querySelector( '#search' )
-    searchInput.addEventListener( 'keyup', handleSearchChange)
+    //searchInput.addEventListener( 'keyup', handleSearchChange)
         
     
     
