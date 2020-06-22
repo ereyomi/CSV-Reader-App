@@ -85,12 +85,12 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         try
         {
             myPromise()
-            .then( data => {
+            .then( datas => {
                     //console.log(data)
                 (data.length > 0) ? loading( false ) : ''
                 clientTempStore = data
                 //fullDataUpdate(data)
-                    data.forEach( d => {
+                    datas.forEach( data => {
                         const card = document.createElement( 'div' )
                     card.setAttribute( 'data-card-username', `${ data.username }` )
                     card.innerHTML = `
