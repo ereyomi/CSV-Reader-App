@@ -81,21 +81,15 @@ const getCsvToJSON = ( req, res ) => {
                 return yInt - xInt;
             });
              
-            //res.send( newData )
-            return newData
+            res.send( newData )
         }).catch(err => {
             // log error if any
-            //res.send( err )
-            return err
+            res.send( err )
         });
 }
 
 // Callback function to complete GET '/all'
-//app.get( '/api/getdata', getCsvToJSON)
-app.get( '/api/getdata', ( req, res ) => {
-    const d = getCsvToJSON();
-    res.send(d)
-})
+app.get( '/api/getdata', getCsvToJSON)
 // Setup Server
 
 const port = process.env.PORT || 8000;
