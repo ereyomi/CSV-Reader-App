@@ -105,11 +105,11 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         {
             await fetch( '/api/getdata' )
             .then(res => res.json())
-                .then( ress => {
+                .then( dd => {
                 loading( false )
                 //clientTempStore = dataR
                 let counter = 0; //counter for top 3
-                ress.forEach( data => {
+                [...dd].forEach( data => {
 
                     const card = document.createElement( 'div' )
                     if ( counter > 2 )
@@ -134,7 +134,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
                             </div>
                         `;
 
-                parent.appendChild( card )
+                   parent.appendChild( card )
 
                     ++counter
                 } )
