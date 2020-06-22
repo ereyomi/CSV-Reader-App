@@ -51,15 +51,39 @@ const getNeatCsv = ( req, res ) => {
 
 // require csvtojson module
     const CSVToJSON = require( 'csvtojson' );
+const { parse } = require( 'path' );
 
 const getCsvToJSON = ( req, res ) => {
 
     // convert users.csv file to JSON array
-    CSVToJSON().fromFile('HNGi7.csv')
+    CSVToJSON().fromFile('csv/HNGI7.csv')
         .then(data => {
             // users is a JSON array
             // log the JSON array
-            res.send( data )
+            console.log(data)
+            /* const structureData = data.map( data => {
+                const { fullname, username, email, totalpoint } = data
+                return {
+                    [ username ]: {
+                        fullname,
+                        username,
+                        email,
+                        totalpoint,
+                    }
+                }
+                    
+            }
+            ); */
+
+            const newData = data.filter(a => a.totalpoint !== '').sort((x,y) => {
+            // var xInt = new Number(x.totalpoint.substring(1,x.length));
+            // var yInt = new Number(y.totalpoint.substring(1,x.length)); 
+                let xInt = parseInt(x.totalpoint)
+                let yInt = parseInt(y.totalpoint)
+                return yInt - xInt;
+            });
+             
+            res.send( newData )
         }).catch(err => {
             // log error if any
             res.send( err )
