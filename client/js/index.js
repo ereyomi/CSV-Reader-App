@@ -73,14 +73,19 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     
     }
 
-    const fullDataUpdate = (dat) => {
-        let counter = 0; //counter for top 3
-        dat.forEach( da => {
+    const fullDataUpdate = ( data ) => {
+        let counter = 0
+        ( typeof data === 'object' ) ? ''
+            : (
+             //counter for top 3
+            data.forEach( da => {
 
-            updateUi( counter, da )
+                updateUi( counter, da )
 
-            ++counter
-        } ) 
+                ++counter
+            } ) 
+        )
+        
     }
     
     
@@ -105,39 +110,11 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
         {
             await fetch( '/api/getdata' )
             .then(res => res.json())
-                .then( dd => {
-                loading( false )
-                //clientTempStore = dataR
-                let counter = 0; //counter for top 3
-                [...dd].forEach( data => {
-
-                    const card = document.createElement( 'div' )
-                    if ( counter > 2 )
-                    {
-                        card.setAttribute( 'class', 'card top' )
-                    } else
-                    {
-                        card.setAttribute( 'class', 'card' )
-                    }
-                    card.setAttribute( 'data-card-username', `${ data.username }` )
-                    card.innerHTML = `
-                            <div class="card-side-a">
-                                <p class="card-name">
-                                    ${data.fullname }
-                                </p>
-                                <p class="handle">${data.username }</p>
-                            </div>
-                            <div class="card-side-b">
-                                <div class="score">
-                                    <span>${data.totalpoint }</span>
-                                </div>
-                            </div>
-                        `;
-
-                   parent.appendChild( card )
-
-                    ++counter
-                } )
+                .then( data => {
+                (data.length > 0) ? loading( false ) : ''
+                clientTempStore = data
+                fullDataUpdate(data)
+                
             } ) 
 
         } catch (error) {
@@ -147,7 +124,7 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
     /* Debounce function */
     function debounce ( a, b, c ) { var d, e; return function () { function h () { d = null, c || ( e = a.apply( f, g ) ) } var f = this, g = arguments; return clearTimeout( d ), d = setTimeout( h, b ), c && !d && ( e = a.apply( f, g ) ), e } };
 
-    /*handleSearchChange = debounce( ( event ) => {
+    handleSearchChange = debounce( ( event ) => {
         const searchText = event.target.value.toLowerCase()
             parent.innerHTML = ''
             console.log( searchText )
@@ -161,10 +138,10 @@ window.addEventListener( 'DOMContentLoaded', async ( event ) => {
             {
                 typeof dd !== 'undefined' ? updateUi( 0, dd ) : ''
             }
-    }, 500 )*/
+    }, 500 )
     
     const searchInput = document.querySelector( '#search' )
-    //searchInput.addEventListener( 'keyup', handleSearchChange)
+    searchInput.addEventListener( 'keyup', handleSearchChange)
         
     
     

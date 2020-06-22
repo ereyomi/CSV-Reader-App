@@ -56,7 +56,7 @@ const { parse } = require( 'path' );
 const getCsvToJSON = ( req, res ) => {
 
     // convert users.csv file to JSON array
-    CSVToJSON().fromFile('csv/HNGI7.csv')
+    CSVToJSON().fromFile('csv/HNGi7.csv')
         .then(data => {
             // users is a JSON array
             // log the JSON array
